@@ -18,12 +18,13 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Teodor Nikolov's professional webpage
+title: Teodor Nikolov
+name: Teodor Nikolov
 email: tnikolov@hotmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  This is Teodor Nikolov's professional webpage.
-  It contains various entries relevant to his
-  career, such as experience and education.
+  Welcome to Teodor Nikolov's professional webpage.
+  The website contents are related to his career,
+  such as experience and education.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: TeodorNikolov10
@@ -53,3 +54,9 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+collections:
+  entries-job:
+    output: true
+  entries-education:
+    output: true

@@ -1,16 +1,20 @@
 ---
 layout: base
 ---
+<!-- Date format -->
+{% assign date_format = site.minima.date_format | default: "%-d %-b %Y" %}
+{% assign date-format_no-day = site.minima.date_format | default: "%-b %Y" %}
 
 <div class="home">
   {%- if page.title -%}
     <h1 class="page-heading">{{ page.title }}</h1>
   {%- endif -%}
 
-  {{ content }}
+  <h2><strong>WEBSITE IS WORK IN PROGRESS!!!</strong></h2>
+  <hr>
 
-  <!-- Date formats -->
-  {%- assign date_format = site.minima.date_format | default: "%-d %-b %Y" -%}
+  <h1>Career Overview</h1>
+  {{ content }}
 
   {% if site.paginate %}
     {% assign posts = paginator.posts %}
@@ -18,62 +22,112 @@ layout: base
     {% assign posts = site.posts %}
   {% endif %}
 
-  {% if site.job-entries.size > 0 %}
-    <ul class="job-entry-list">
-      {% for job-entry in site.job-entries %}
+  <h2>Experience</h2>
+    {% if site.entries-job.size > 0 %}
+    <ul class="post-list job-entry-list">
+      <!-- Sort by start date -->
+      {% assign sorted-job-entries = site.entries-job | sort: "start" | reverse %}
+      {% for job-entry in sorted-job-entries %}
+      <hr>
       <li>
-        <span class="post-meta">{{ job-entry.start | date: date_format }} — {{ job-entry.end | date: date_format }} <i>({{ job-entry.type | capitalize }})</i></span>
+        <span class="post-meta">
+          {{ job-entry.start | date: date_format }} — {{ job-entry.end | date: date_format }}
+          | {{ job-entry.location }}
+          | {{ job-entry.employment | capitalize }}
+        </span>
+        <br>
+        <span>
+          {% for position in job-entry.positions %}
+            <!-- Separator -->
+            {% if forloop.index > 1 %} | {% endif %}
+            <!-- Entry -->
+            {% if forloop.index == 1 %}
+              <strong>{{ position | capitalize }}</strong>
+            {% else %}
+              {{ position | capitalize }}
+            {% endif %}
+          {% endfor %}
+        </span>
+
         <h3>
-          LOL
           <a class="post-link" href="{{ job-entry.url | relative_url }}">
-            {{ job-entry.title | escape }}
+            {{ job-entry.company | escape }}
+            {% if job-entry.project != "" %}
+              | {{ job-entry.project | escape }}
+            {% endif %}
           </a>
         </h3>
+
+        <span>
+          <em>
+          Technologies -
+          {% for technology in job-entry.technologies %}
+            <!-- Separator -->
+            {% if forloop.index > 1 %} . {% endif %}
+            <!-- Entry -->
+            {{ technology }}
+          {% endfor %}
+          </em>
+        </span>
       </li>
-      {%- endfor -%}
+      {% endfor %}
     </ul>
   {% else %}
-    No job entries found.
+    No job entries found on server.
   {% endif %}
 
-  {%- if posts.size > 0 -%}
-    {%- if page.list_title -%}
-      <h2 class="post-list-heading">{{ page.list_title }}</h2>
-    {%- endif -%}
-    <ul class="post-list">
-      {%- for post in posts -%}
+  <h2>Education</h2>
+    {% if site.entries-education.size > 0 %}
+    <ul class="post-list edu-entry-list">
+      <!-- Sort by start date -->
+      {% assign sorted-edu-entries = site.entries-education | sort: "start" | reverse %}
+      {% for edu-entry in sorted-edu-entries %}
+      <hr>
       <li>
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
+        <span class="post-meta">
+          {{ edu-entry.start | date: date-format_no-day }} — {{ edu-entry.end | date: date-format_no-day }}
+          | {{ edu-entry.location }}
+        </span>
+        <br>
+
         <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
+          <a class="post-link" href="{{ edu-entry.url | relative_url }}">
+            {{ edu-entry.institution | escape }}
+            {% if edu-entry.degree != "" %}
+              | {{ edu-entry.degree | escape }}
+            {% endif %}
           </a>
         </h3>
-        {%- if site.show_excerpts -%}
-          {{ post.excerpt }}
-        {%- endif -%}
+
+        <span>
+          <em>
+          Thesis -
+          {{ edu-entry.thesis }}
+          </em>
+        </span>
       </li>
-      {%- endfor -%}
+      {% endfor %}
     </ul>
+  {% else %}
+    No education entries found on server.
+  {% endif %}
 
-    {% if site.paginate %}
-      <div class="pager">
-        <ul class="pagination">
-        {%- if paginator.previous_page %}
-          <li><a href="{{ paginator.previous_page_path | relative_url }}" class="previous-page">{{ paginator.previous_page }}</a></li>
-        {%- else %}
-          <li><div class="pager-edge">•</div></li>
-        {%- endif %}
-          <li><div class="current-page">{{ paginator.page }}</div></li>
-        {%- if paginator.next_page %}
-          <li><a href="{{ paginator.next_page_path | relative_url }}" class="next-page">{{ paginator.next_page }}</a></li>
-        {%- else %}
-          <li><div class="pager-edge">•</div></li>
-        {%- endif %}
-        </ul>
-      </div>
-    {%- endif %}
-
-  {%- endif -%}
+  <!-- {% if site.paginate %}
+    <div class="pager">
+      <ul class="pagination">
+      {%- if paginator.previous_page %}
+        <li><a href="{{ paginator.previous_page_path | relative_url }}" class="previous-page">{{ paginator.previous_page }}</a></li>
+      {%- else %}
+        <li><div class="pager-edge">•</div></li>
+      {%- endif %}
+        <li><div class="current-page">{{ paginator.page }}</div></li>
+      {%- if paginator.next_page %}
+        <li><a href="{{ paginator.next_page_path | relative_url }}" class="next-page">{{ paginator.next_page }}</a></li>
+      {%- else %}
+        <li><div class="pager-edge">•</div></li>
+      {%- endif %}
+      </ul>
+    </div>
+  {% endif %} -->
 
 </div>

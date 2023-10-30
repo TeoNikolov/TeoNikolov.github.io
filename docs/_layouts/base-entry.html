@@ -1,0 +1,12 @@
+---
+layout: base
+---
+<!-- Date format -->
+{% assign date_format = site.minima.date_format | default: "%-d %-b %Y" %}
+
+<div class="entry base-entry">
+    <h2>{{ page.title }}</h2>
+    <span class="post-meta">{{ page.start | date: date_format }} — {{ page.end | date: date_format }} | <i>{{ page.type | capitalize }}</i></span>
+    <hr>
+    {{ content }}
+</div>
