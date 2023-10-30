@@ -22,6 +22,7 @@ layout: base
     {% assign posts = site.posts %}
   {% endif %}
 
+  <!-- Experience -->
   <h2>Experience</h2>
     {% if site.entries-job.size > 0 %}
     <ul class="post-list job-entry-list">
@@ -30,15 +31,19 @@ layout: base
       {% for job-entry in sorted-job-entries %}
       <hr>
       <li>
+
+        <!-- Date, location, employment type -->
         <span class="post-meta">
           {{ job-entry.start | date: date_format }} — {{ job-entry.end | date: date_format }}
           | {{ job-entry.location }}
           | {{ job-entry.employment | capitalize }}
         </span>
         <br>
+
+        <!-- Position -->
         <span>
           {% for position in job-entry.positions %}
-            <!-- Separator -->
+            <!-- Separator "|" -->
             {% if forloop.index > 1 %} | {% endif %}
             <!-- Entry -->
             {% if forloop.index == 1 %}
@@ -48,22 +53,28 @@ layout: base
             {% endif %}
           {% endfor %}
         </span>
+        <br>
 
+        <!-- Title -->
         <h3>
           <a class="post-link" href="{{ job-entry.url | relative_url }}">
-            {{ job-entry.company | escape }}
-            {% if job-entry.project != "" %}
-              | {{ job-entry.project | escape }}
+            <!-- Project -->
+            {% if job-entry.project and job-entry.project != "" %}
+              {{ job-entry.project | escape }}
+              @
             {% endif %}
+            <!-- Company -->
+            {{ job-entry.company | escape }}
           </a>
         </h3>
 
+        <!-- Technologies -->
         <span>
           <em>
           Technologies -
           {% for technology in job-entry.technologies %}
             <!-- Separator -->
-            {% if forloop.index > 1 %} . {% endif %}
+            {% if forloop.index > 1 %} · {% endif %}
             <!-- Entry -->
             {{ technology }}
           {% endfor %}
@@ -76,6 +87,7 @@ layout: base
     No job entries found on server.
   {% endif %}
 
+  <!-- Education -->
   <h2>Education</h2>
     {% if site.entries-education.size > 0 %}
     <ul class="post-list edu-entry-list">
@@ -92,10 +104,10 @@ layout: base
 
         <h3>
           <a class="post-link" href="{{ edu-entry.url | relative_url }}">
-            {{ edu-entry.institution | escape }}
-            {% if edu-entry.degree != "" %}
-              | {{ edu-entry.degree | escape }}
-            {% endif %}
+            <!-- Degree -->
+            {{ edu-entry.degree | escape }}
+            <!-- Institution -->
+            @ {{ edu-entry.institution | escape }}
           </a>
         </h3>
 
